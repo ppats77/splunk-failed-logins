@@ -25,10 +25,12 @@ optional arguments:
   -p PORT, --port PORT  Port to use when connecting to a Splunk server
                         (default: 8089)
   -f FIELDS, --fields FIELDS
-                        Set of fields to return. Default: timestamp user info
-                        src host (default: timestamp user info src host)
+                        Set of fields to return. (default: timestamp user info
+                        src host)
+  -l LIMIT, --limit LIMIT
+                        Set number of lines to return. (default: 100)
   -t TIME, --time TIME  Timeframe to search. Default: -1 week. Options:
-                        -t=-1minute, -t=-1day, -t=-1year (default: -1w )
+                        -t=-1minute, -t=-1day, -t=-1year (default: -1w)
 ```
 
 ## Example 
