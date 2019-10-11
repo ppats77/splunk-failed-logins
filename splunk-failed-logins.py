@@ -8,8 +8,8 @@ from argparse import ArgumentParser
 
 HOST = "localhost"
 PORT = 8089
-USERNAME = "admin"
-PASSWORD = "..."
+USERNAME = "gmax"
+PASSWORD = "Gni211!1"
 FIELDS = "timestamp user info src host"
 TIME = "-1w "
 
@@ -43,7 +43,8 @@ def main():
     for result in raw:
         if isinstance(result, dict):
             for key in args.fields.split(" "):
-                print key+"="+str(result[key]),
+                print key+"="+str(result[key])+'\t',
+            print '\n',
 
 
 if __name__ == '__main__':
