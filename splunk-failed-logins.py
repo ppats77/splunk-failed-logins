@@ -42,22 +42,27 @@ def main():
     except binding.AuthenticationError:
         print "CONNECTION ERROR:\nConnection to Splunk Server on \nhost : '" + args.host + "', username : '" + args.host + \
             "', password : '" + args.password + \
-            "'\ncould not be establised.\nPlease check your settings.Please use python " + \
-            sys.argv[0] + " -h"
+            "'\ncould not be establised.\nPlease check your settings.\nPlease use 'python " + \
+            sys.argv[0] + " -h' for help"
         sys.exit(1)
         
     # Make Search on Splunk Server 
     
     raw = results.ResultsReader(service.jobs.export(
-        "search index=_audit action=\"login attempt\" info=failed earliest="+args.time+" | fields " + args.fields))
+        "search index=_audit action=\"login attempt\" info=failed earliest=" + args.time + " | fields " + args.fields))
     
     # Parsing and printing results
     
-    for result in raw:
-        if isinstance(result, dict):
-            for key in args.fields.split(" "):
-                print key+"="+str(result[key])+'\t',
-            print '\n',
+    try: 
+        for result in raw:
+            if isinstance(result, dict):
+                for key in args.fields.split(" "):
+                    print key+"="+str(result[key])+'\t',
+                print '\n',
+    except KeyError:
+        print "Please check fields requested : '" + args.fields + "'\nPlease use 'python " + sys.argv[0] + " -h' for help"
+        sys.exit(1)
+        
 
 
 if __name__ == '__main__':
