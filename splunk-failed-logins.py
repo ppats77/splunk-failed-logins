@@ -2,21 +2,23 @@
 import sys
 import splunklib.results as results
 import splunklib.client as client
+import splunklib.binding as binding
 import argparse
 
 # Default settings
 
 HOST = "localhost"
 PORT = 8089
-USERNAME = "admin"   # please chenge to your default username 
+USERNAME = "admin"   # please chenge to your default username
 PASSWORD = "none"    # please change to your default password
 FIELDS = "timestamp user info src host"
 TIME = "-1w "
 
 
 def main():
-    #sys.stdout.flush()
-    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    # sys.stdout.flush()
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument(
         "-H", "--host", help="Splunk server Host Name", default=HOST)
     parser.add_argument(
@@ -32,12 +34,16 @@ def main():
     args = parser.parse_args()
 
     # Creating connection to the Splunk server.
-
-    service = client.connect(
-        host=args.host,
-        port=args.port,
-        username=args.user,
-        password=args.password)
+    #service = client.connect(host=args.host,port=args.port,username=args.user,password=args.password)
+    try:
+        service = client.connect(
+            host=args.host, port=args.port, username=args.user, password=args.password)
+    except binding.AuthenticationError:
+        print "CONNECTION ERROR:\nConnection to Splunk Server on \nhost : '" + args.host + "', username : '" + args.host + \
+            "', password : '" + args.password + \
+            "'\ncould not be establised.\nPlease check your settings.Please use python " + \
+            sys.argv[0] + " -h"
+        sys.exit(1)
     raw = results.ResultsReader(service.jobs.export(
         "search index=_audit action=\"login attempt\" info=failed earliest="+args.time+" | fields " + args.fields))
     for result in raw:
