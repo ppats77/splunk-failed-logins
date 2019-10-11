@@ -8,7 +8,7 @@ from argparse import ArgumentParser
 
 HOST = "localhost"
 PORT = 8089
-USERNAME = "gmax"
+USERNAME = "admin"
 PASSWORD = "..."
 FIELDS = "timestamp user info src host"
 TIME = "-1w "
