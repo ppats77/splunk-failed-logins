@@ -1,6 +1,5 @@
 #!/usr/bin/python
 import sys
-from time import sleep
 import splunklib.results as results
 import splunklib.client as client
 from argparse import ArgumentParser
