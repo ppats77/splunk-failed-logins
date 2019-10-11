@@ -4,7 +4,7 @@ By default it use settings to connect to the localy running Splunk
 
 ## Instalation
 1. Clone the project: ```git clone https://github.com/ppats77/splunk-failed-logins``` 
-2. Install Splunk SDK: ```[sudo] pip install splunk-sdk```
+2. Install required packages: ```[sudo] pip install -r requirements.txt```
 3. Configure connection settings to the Splunk Server
    - inside the file
    - using command-line arguments
