@@ -13,8 +13,7 @@ USERNAME = "admin"   # please chenge to your default username
 PASSWORD = "none"    # please change to your default password
 FIELDS = "timestamp user info src host"
 TIME = "-1w"
-LIMIT= 100
-
+LIMIT = 100
 
 
 def main():
@@ -38,35 +37,35 @@ def main():
     args = parser.parse_args()
 
     # Creating connection to the Splunk server.
-    
+
     try:
         service = client.connect(
             host=args.host, port=args.port, username=args.user, password=args.password)
-    
+
     except binding.AuthenticationError:
         print "CONNECTION ERROR:\nConnection to Splunk Server on \nhost : '" + args.host + "', username : '" + args.host + \
             "', password : '" + args.password + \
             "'\ncould not be establised.\nPlease check your settings.\nPlease use 'python " + \
             sys.argv[0] + " -h' for help"
         sys.exit(1)
-        
-    # Make Search on Splunk Server 
-    
+
+    # Make Search on Splunk Server
+
     raw = results.ResultsReader(service.jobs.export(
         "search index=_audit action=\"login attempt\" info=failed earliest=" + args.time + " | head " + str(args.limit) + " | fields " + args.fields))
-    
+
     # Parsing and printing results
-    
-    try: 
+
+    try:
         for result in raw:
             if isinstance(result, dict):
                 for key in args.fields.split(" "):
                     print key+"="+str(result[key])+'\t',
                 print '\n',
     except KeyError:
-        print "Please check fields requested : '" + args.fields + "'\nPlease use 'python " + sys.argv[0] + " -h' for help"
+        print "Please check fields requested : '" + args.fields + \
+            "'\nPlease use 'python " + sys.argv[0] + " -h' for help"
         sys.exit(1)
-        
 
 
 if __name__ == '__main__':
