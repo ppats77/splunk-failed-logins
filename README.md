@@ -33,7 +33,7 @@ optional arguments:
 
 ## Example 
 ```
-python splunk-failed-logins.py -H=mydockerhost -U=admin -P="*********"
+testuser$ python splunk-failed-logins.py -H=mydockerhost -U=admin -P="*********"
 timestamp=10-10-2019 22:49:48.555	user=admin	info=failed	src=127.0.0.1	host=wpad.local
 timestamp=10-10-2019 22:32:55.298	user=admin	info=failed	src=127.0.0.1	host=wpad.local
 timestamp=10-10-2019 22:07:07.294	user=gmax	info=failed	src=127.0.0.1	host=wpad.local
