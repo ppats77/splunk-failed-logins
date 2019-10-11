@@ -13,6 +13,8 @@ USERNAME = "admin"   # please chenge to your default username
 PASSWORD = "none"    # please change to your default password
 FIELDS = "timestamp user info src host"
 TIME = "-1w "
+LIMIT= 100
+
 
 
 def main():
@@ -28,7 +30,9 @@ def main():
     parser.add_argument(
         "-p", "--port", help="Port to use when connecting to a Splunk server", default=PORT, type=int)
     parser.add_argument(
-        "-f", "--fields", help="Set of fields to return. Default: timestamp user info src host", default=FIELDS)
+        "-f", "--fields", help="Set of fields to return.", default=FIELDS)
+    parser.add_argument(
+        "-l", "--limit", help="Set number of lines to return.", type=int, default=LIMIT)
     parser.add_argument(
         "-t", "--time", help="Timeframe to search. Default: -1 week. Options: -t=-1minute, -t=-1day, -t=-1year", default=TIME)
     args = parser.parse_args()
@@ -49,7 +53,7 @@ def main():
     # Make Search on Splunk Server 
     
     raw = results.ResultsReader(service.jobs.export(
-        "search index=_audit action=\"login attempt\" info=failed earliest=" + args.time + " | fields " + args.fields))
+        "search index=_audit action=\"login attempt\" info=failed earliest=" + args.time + " | head " + str(args.limit) + " | fields " + args.fields))
     
     # Parsing and printing results
     
