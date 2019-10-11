@@ -16,7 +16,7 @@ TIME = "-1w "
 
 
 def main():
-    # sys.stdout.flush()
+    sys.stdout.flush()
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument(
@@ -34,18 +34,25 @@ def main():
     args = parser.parse_args()
 
     # Creating connection to the Splunk server.
-    #service = client.connect(host=args.host,port=args.port,username=args.user,password=args.password)
+    
     try:
         service = client.connect(
             host=args.host, port=args.port, username=args.user, password=args.password)
+    
     except binding.AuthenticationError:
         print "CONNECTION ERROR:\nConnection to Splunk Server on \nhost : '" + args.host + "', username : '" + args.host + \
             "', password : '" + args.password + \
             "'\ncould not be establised.\nPlease check your settings.Please use python " + \
             sys.argv[0] + " -h"
         sys.exit(1)
+        
+    # Make Search on Splunk Server 
+    
     raw = results.ResultsReader(service.jobs.export(
         "search index=_audit action=\"login attempt\" info=failed earliest="+args.time+" | fields " + args.fields))
+    
+    # Parsing and printing results
+    
     for result in raw:
         if isinstance(result, dict):
             for key in args.fields.split(" "):
