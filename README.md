@@ -3,7 +3,7 @@ Connects to the Splunk server and makes a request to prints the list of failed l
 By default it use settings to connect to the localy running Splunk:
 
 optional arguments:
-		-h, --help            show this help message and exit
+		-h, --help show this help message and exit
 		-H HOST, --host Splunk server Host Name
 		-U USER, --user Username to use when connecting to a Splunk server
 		-P PASSWORD, --password Username to use when connecting to a Splunk server
