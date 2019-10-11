@@ -1,22 +1,23 @@
 #!/usr/bin/python
 import sys
+import os
 import splunklib.results as results
 import splunklib.client as client
-from argparse import ArgumentParser
+import argparse
 
 # Default settings
 
 HOST = "localhost"
 PORT = 8089
-USERNAME = "gmax"
-PASSWORD = "Gni211!1"
+USERNAME = "admin"   # please chenge to your default username 
+PASSWORD = "none"    # please change to your default password
 FIELDS = "timestamp user info src host"
 TIME = "-1w "
 
 
 def main():
-    sys.stdout.flush()
-    parser = ArgumentParser(description='Search Failed Login attempts.')
+    #sys.stdout.flush()
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument(
         "-H", "--host", help="Splunk server Host Name", default=HOST)
     parser.add_argument(
