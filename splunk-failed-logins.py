@@ -1,6 +1,5 @@
 #!/usr/bin/python
 import sys
-import os
 import splunklib.results as results
 import splunklib.client as client
 import argparse
