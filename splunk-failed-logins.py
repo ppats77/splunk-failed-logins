@@ -12,7 +12,7 @@ PORT = 8089
 USERNAME = "admin"   # please chenge to your default username
 PASSWORD = "none"    # please change to your default password
 FIELDS = "timestamp user info src host"
-TIME = "-1w "
+TIME = "-1w"
 LIMIT= 100
 
 
