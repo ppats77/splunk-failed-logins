@@ -1,6 +1,6 @@
 # Splunk failed logins
-Connects to the Splunk server and makes a request to prints the list of failed login attemts to the Splunk Search Head Server.
-By default it use settings to connect to the localy running Splunk
+The python script designed to connect to a local or remote Splunk search head server and make a search request for the failed logins. 
+By default, the script uses settings to connect to the locally running Splunk instance in port 8089. The username and password need to be provided.
 
 ## Instalation
 1. Clone the project: ```git clone https://github.com/ppats77/splunk-failed-logins``` 
