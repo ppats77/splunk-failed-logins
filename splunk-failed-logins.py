@@ -63,7 +63,7 @@ def main():
                     print key+"="+str(result[key])+'\t',
                 print '\n',
     except KeyError:
-        print "Error: Check in fields request -> '%s'" % args.fields
+        print "ERROR: Check in fields request -> '%s'" % args.fields
         print "Please use 'python %s -h' to call help message" % sys.argv[0]
         sys.exit(1)
 
