@@ -43,17 +43,17 @@ def main():
             host=args.host, port=args.port, username=args.user, password=args.password)
 
     except binding.AuthenticationError:
-        print "CONNECTION ERROR:\nConnection to Splunk Server on \nhost : '" + args.host + "', username : '" + args.host + \
-            "', password : '" + args.password + \
-            "'\ncould not be establised.\nPlease check your settings.\nPlease use 'python " + \
-            sys.argv[0] + " -h' for help"
+        print "CONNECTION ERROR: to Splunk Server on host '%s', username '%s', password '%s'" \
+            % (args.host, args.user, args.password)
+        print  "Please use 'python %s -h' to call help message" % sys.argv[0]
         sys.exit(1)
 
     # Make Search on Splunk Server
 
-    raw = results.ResultsReader(service.jobs.export(
-        "search index=_audit action=\"login attempt\" info=failed earliest=" + args.time + " | head " + str(args.limit) + " | fields " + args.fields))
-
+    jobexport = service.jobs.export(
+        "search index=_audit action=\"login attempt\" info=failed earliest=%s | head %s | fields %s" \
+            % (args.time, str(args.limit), args.fields))
+    raw = results.ResultsReader(jobexport)
     # Parsing and printing results
 
     try:
@@ -63,8 +63,8 @@ def main():
                     print key+"="+str(result[key])+'\t',
                 print '\n',
     except KeyError:
-        print "Please check fields requested : '" + args.fields + \
-            "'\nPlease use 'python " + sys.argv[0] + " -h' for help"
+        print "Error: Check in fields request -> '%s'" % args.fields
+        print  "Please use 'python %s -h' to call help message" % sys.argv[0]
         sys.exit(1)
 
 
