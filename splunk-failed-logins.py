@@ -6,7 +6,6 @@ import splunklib.binding as binding
 import argparse
 
 # Default settings
-
 HOST = "localhost"
 PORT = 8089
 USERNAME = "admin"   # please chenge to your default username
@@ -37,7 +36,6 @@ def main():
     args = parser.parse_args()
 
     # Creating connection to the Splunk server.
-
     try:
         service = client.connect(
             host=args.host, port=args.port, username=args.user, password=args.password)
@@ -49,13 +47,12 @@ def main():
         sys.exit(1)
 
     # Make Search on Splunk Server
-
     jobexport = service.jobs.export(
         "search index=_audit action=\"login attempt\" info=failed earliest=%s | head %s | fields %s"
         % (args.time, str(args.limit), args.fields))
     raw = results.ResultsReader(jobexport)
+    
     # Parsing and printing results
-
     try:
         for result in raw:
             if isinstance(result, dict):
