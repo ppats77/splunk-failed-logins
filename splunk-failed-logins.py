@@ -45,14 +45,14 @@ def main():
     except binding.AuthenticationError:
         print "CONNECTION ERROR: to Splunk Server on host '%s', username '%s', password '%s'" \
             % (args.host, args.user, args.password)
-        print  "Please use 'python %s -h' to call help message" % sys.argv[0]
+        print "Please use 'python %s -h' to call help message" % sys.argv[0]
         sys.exit(1)
 
     # Make Search on Splunk Server
 
     jobexport = service.jobs.export(
-        "search index=_audit action=\"login attempt\" info=failed earliest=%s | head %s | fields %s" \
-            % (args.time, str(args.limit), args.fields))
+        "search index=_audit action=\"login attempt\" info=failed earliest=%s | head %s | fields %s"
+        % (args.time, str(args.limit), args.fields))
     raw = results.ResultsReader(jobexport)
     # Parsing and printing results
 
@@ -64,7 +64,7 @@ def main():
                 print '\n',
     except KeyError:
         print "Error: Check in fields request -> '%s'" % args.fields
-        print  "Please use 'python %s -h' to call help message" % sys.argv[0]
+        print "Please use 'python %s -h' to call help message" % sys.argv[0]
         sys.exit(1)
 
 
