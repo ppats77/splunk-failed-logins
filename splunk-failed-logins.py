@@ -56,7 +56,7 @@ def main():
     try:
         for result in raw:
             if isinstance(result, dict):
-                for key in args.fields.split(" "):
+                for key in args.fields.split():
                     print key+"="+str(result[key])+'\t',
                 print '\n',
     except KeyError:
